@@ -8,11 +8,11 @@ const slides = [
   { id: 4, text: "🚀 Prepare for your career with guidance" }
 ];
 
-function HomePage({ onLoginClick }) {
+function HomePage({ onHomeClick, onAboutClick, onContactClick, onLoginClick }) {
   const [current, setCurrent] = useState(0);
   const [isDark, setIsDark] = useState(false);
 
-  // Auto slideshow every 3s
+  // Auto slideshow every 3 seconds
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrent((prev) => (prev + 1) % slides.length);
@@ -20,7 +20,7 @@ function HomePage({ onLoginClick }) {
     return () => clearInterval(timer);
   }, []);
 
-  // Theme toggle handler
+  // Theme toggle
   const toggleTheme = () => {
     setIsDark((prev) => !prev);
     document.body.classList.toggle("dark-theme");
@@ -30,11 +30,11 @@ function HomePage({ onLoginClick }) {
     <div className="homepage">
       {/* Navbar */}
       <nav className="navbar">
-        <div className="logo">CSEVerse</div>
+        <div className="logo" onClick={onHomeClick} style={{cursor: "pointer"}}>CSEVerse</div>
         <div className="nav-links">
-          <button className="nav-btn">Home</button>
-          <button className="nav-btn">About Us</button>
-          <button className="nav-btn">Contacts</button>
+          <button className="nav-btn" onClick={onHomeClick}>Home</button>
+          <button className="nav-btn" onClick={onAboutClick}>About Us</button>
+          <button className="nav-btn" onClick={onContactClick}>Contacts</button>
           <div className="theme-box" onClick={toggleTheme}>
             {isDark ? "🌙" : "☀️"}
           </div>
@@ -60,7 +60,7 @@ function HomePage({ onLoginClick }) {
         </div>
       </div>
 
-      {/* Welcome header */}
+      {/* Welcome Section */}
       <div className="homepage-header">
         <h1>Welcome to CSEVerse</h1>
         <p>
