@@ -1,18 +1,22 @@
 import React, { useState } from "react";
-import "./App.css";
 import HomePage from "./Pages/HomePage";
 import Login from "./Pages/Login";
+import Signup from "./Pages/Signup";
 
 function App() {
-  const [isLoginPage, setIsLoginPage] = useState(false);
+  const [page, setPage] = useState("home");
 
   return (
-    <div className="App">
-      {isLoginPage ? (
-        <Login onLogin={() => setIsLoginPage(false)} />
-      ) : (
-        <HomePage onLoginClick={() => setIsLoginPage(true)} />
+    <div>
+      {page === "home" && <HomePage onLoginClick={() => setPage("login")} />}
+      {page === "login" && (
+        <Login
+          onLogin={() => setPage("home")}
+          onSignupClick={() => setPage("signup")}
+          onForgotClick={() => setPage("signup")} // For demo, Forgot → Signup
+        />
       )}
+      {page === "signup" && <Signup />}
     </div>
   );
 }

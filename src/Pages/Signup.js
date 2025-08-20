@@ -1,4 +1,4 @@
-/*import React, { useState } from "react";
+import React, { useState } from "react";
 import "./Signup.css";
 
 export default function Signup() {
@@ -15,47 +15,21 @@ export default function Signup() {
   });
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleNavigation = (page) => {
-    window.location.href = `/${page}`;
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSignup = (e) => {
     e.preventDefault();
-
     if (formData.password !== formData.confirmPassword) {
       alert("Passwords do not match!");
       return;
     }
-
-    alert("Signup successful! Redirecting to login page...");
-    window.location.href = "/login";
-  };
-
-  const handleLoginRedirect = () => {
-    window.location.href = "/login";
+    alert("Signup successful! Redirecting...");
+    window.location.reload();
   };
 
   return (
     <div className="signup-container">
-    
-      {/* Navbar *//*}
-      <nav className="navbar">
-        <div className="logo">CSEVerse</div>
-        <div className="nav-links">
-          <button onClick={() => handleNavigation("home")}>Home</button>
-          <button onClick={() => handleNavigation("about")}>About</button>
-          <button onClick={() => handleNavigation("contact")}>Contact</button>
-          <button onClick={() => handleNavigation("login")}>Login</button>
-        </div>
-      </nav>
-
-      {/* Signup Form *//*}
       <div className="form-wrapper">
         <h2>Create your account</h2>
         <form onSubmit={handleSignup} className="signup-form">
@@ -63,7 +37,6 @@ export default function Signup() {
           <input
             type="text"
             name="fullName"
-            placeholder="Enter your full name"
             value={formData.fullName}
             onChange={handleChange}
             required
@@ -73,7 +46,6 @@ export default function Signup() {
           <input
             type="text"
             name="contactNo"
-            placeholder="Enter your contact number"
             value={formData.contactNo}
             onChange={handleChange}
             required
@@ -83,7 +55,6 @@ export default function Signup() {
           <input
             type="text"
             name="address"
-            placeholder="Enter your address"
             value={formData.address}
             onChange={handleChange}
             required
@@ -93,7 +64,6 @@ export default function Signup() {
           <input
             type="text"
             name="idNumber"
-            placeholder="Enter your ID number"
             value={formData.idNumber}
             onChange={handleChange}
             required
@@ -106,7 +76,7 @@ export default function Signup() {
             onChange={handleChange}
             required
           >
-            <option value="">Select your semester</option>
+            <option value="">Select semester</option>
             <option value="1">1st Semester</option>
             <option value="2">2nd Semester</option>
             <option value="3">3rd Semester</option>
@@ -120,7 +90,7 @@ export default function Signup() {
             onChange={handleChange}
             required
           >
-            <option value="">Select your year</option>
+            <option value="">Select year</option>
             <option value="1">1st Year</option>
             <option value="2">2nd Year</option>
             <option value="3">3rd Year</option>
@@ -131,7 +101,6 @@ export default function Signup() {
           <input
             type="email"
             name="eduMail"
-            placeholder="Enter your educational email"
             value={formData.eduMail}
             onChange={handleChange}
             required
@@ -141,7 +110,6 @@ export default function Signup() {
           <input
             type="password"
             name="password"
-            placeholder="Enter your password"
             value={formData.password}
             onChange={handleChange}
             required
@@ -151,21 +119,16 @@ export default function Signup() {
           <input
             type="password"
             name="confirmPassword"
-            placeholder="Confirm your password"
             value={formData.confirmPassword}
             onChange={handleChange}
             required
           />
 
-          <button type="submit" className="signup-btn">Sign Up</button>
+          <button type="submit" className="signup-btn">
+            Sign Up
+          </button>
         </form>
-
-        <p className="login-redirect">
-          Already have an account?{" "}
-          <span onClick={handleLoginRedirect}>Login</span>
-        </p>
       </div>
     </div>
   );
 }
-*/

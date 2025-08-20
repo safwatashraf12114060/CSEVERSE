@@ -5,7 +5,6 @@ import ButtonClick from "../Buttons/ButtonClick";
 function HomePage({ onLoginClick }) {
   return (
     <div className="homepage">
-      {/* Navbar */}
       <nav className="navbar">
         <div className="logo">CSEVerse</div>
         <div className="nav-links">
@@ -18,7 +17,6 @@ function HomePage({ onLoginClick }) {
         </div>
       </nav>
 
-      {/* Welcome header */}
       <div className="homepage-header">
         <h1>Welcome to CSEVerse</h1>
         <p>

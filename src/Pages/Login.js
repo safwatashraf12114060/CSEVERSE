@@ -1,7 +1,7 @@
-import React, { useState } from "react"; 
-import "./Login.css"; 
+import React, { useState } from "react";
+import "./Login.css";
 
-const Login = ({ onLogin }) => {
+const Login = ({ onLogin, onSignupClick, onForgotClick }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -9,8 +9,6 @@ const Login = ({ onLogin }) => {
     e.preventDefault();
     console.log("Email:", email);
     console.log("Password:", password);
-
-    // Login successful → back to HomePage
     if (onLogin) onLogin();
   };
 
@@ -28,7 +26,6 @@ const Login = ({ onLogin }) => {
             onChange={(e) => setEmail(e.target.value)}
             required
           />
-
           <input
             type="password"
             placeholder="Password"
@@ -36,13 +33,16 @@ const Login = ({ onLogin }) => {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-
           <button type="submit">Log In</button>
         </form>
 
         <div className="login-links">
-          <a href="/forgot-password">Forgot Password?</a>
-          <a href="/signup">Don't have an account? Sign Up</a>
+          <button type="button" onClick={onForgotClick}>
+            Forgot Password?
+          </button>
+          <button type="button" onClick={onSignupClick}>
+            Don't have an account? Sign Up
+          </button>
         </div>
       </div>
     </div>

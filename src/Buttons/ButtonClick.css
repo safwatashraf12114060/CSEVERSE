@@ -16,8 +16,8 @@
 
 /* Login button */
 .login-btn {
-  background: blue;
-  color: white;
+  background:blueviolet;
+  color: blue;
   padding: 6px 14px;
   border-radius: 6px;
   border: none;
@@ -26,5 +26,5 @@
 }
 
 .login-btn:hover {
-  background: #0056b3;
+  background: #620ecf;
 }
