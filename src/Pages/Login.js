@@ -33,16 +33,18 @@ const Login = ({ onLogin, onSignupClick, onForgotClick }) => {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-          <button type="submit">Log In</button>
+          <button type="submit" className="login-btn">
+            Log In
+          </button>
         </form>
 
         <div className="login-links">
-          <button type="button" onClick={onForgotClick}>
+          <a href="#" onClick={onForgotClick}>
             Forgot Password?
-          </button>
-          <button type="button" onClick={onSignupClick}>
-            Don't have an account? Sign Up
-          </button>
+          </a>
+          <a href="#" onClick={onSignupClick}>
+            Don’t have an account? Sign Up
+          </a>
         </div>
       </div>
     </div>
