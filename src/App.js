@@ -1,13 +1,18 @@
-import logo from './logo.svg';
-import './App.css';
-//import HomePage from './Pages/HomePage';
-import Login from './Pages/Login';
+import React, { useState } from "react";
+import "./App.css";
+import HomePage from "./Pages/HomePage";
+import Login from "./Pages/Login";
 
 function App() {
+  const [isLoginPage, setIsLoginPage] = useState(false);
+
   return (
     <div className="App">
-     
-      <Login/>
+      {isLoginPage ? (
+        <Login onLogin={() => setIsLoginPage(false)} />
+      ) : (
+        <HomePage onLoginClick={() => setIsLoginPage(true)} />
+      )}
     </div>
   );
 }

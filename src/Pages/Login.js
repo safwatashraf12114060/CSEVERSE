@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState } from "react"; 
 import "./Login.css"; 
 
-const Login = () => {
+const Login = ({ onLogin }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -9,7 +9,9 @@ const Login = () => {
     e.preventDefault();
     console.log("Email:", email);
     console.log("Password:", password);
-    
+
+    // Login successful → back to HomePage
+    if (onLogin) onLogin();
   };
 
   return (

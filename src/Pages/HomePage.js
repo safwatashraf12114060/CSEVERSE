@@ -1,17 +1,20 @@
 import React from "react";
 import "./HomePage.css";
+import ButtonClick from "../Buttons/ButtonClick";
 
-function HomePage() {
+function HomePage({ onLoginClick }) {
   return (
     <div className="homepage">
       {/* Navbar */}
       <nav className="navbar">
         <div className="logo">CSEVerse</div>
         <div className="nav-links">
-          <button className="nav-btn">Home</button>
-          <button className="nav-btn">About Us</button>
-          <button className="nav-btn">Contacts</button>
-          <button className="login-btn">Login</button>
+          <ButtonClick>Home</ButtonClick>
+          <ButtonClick>About Us</ButtonClick>
+          <ButtonClick>Contacts</ButtonClick>
+          <ButtonClick type="login" onClick={onLoginClick}>
+            Login
+          </ButtonClick>
         </div>
       </nav>
 
