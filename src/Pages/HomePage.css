@@ -36,7 +36,7 @@
 
 .login-btn {
   background: blue;
-  color: white;
+  color: blue;
   padding: 6px 14px;
   border-radius: 6px;
   border: none;
@@ -45,7 +45,7 @@
 }
 
 .login-btn:hover {
-  background: #0056b3;
+  background: #2f07bd;
 }
 
 /* ----------- Header ----------- */
@@ -66,3 +66,4 @@
   font-size: 1rem;
   color: #555;
 }
+
