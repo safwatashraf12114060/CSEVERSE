@@ -1,0 +1,77 @@
+/* ----------- Global Themes ----------- */
+
+/* Light Theme */
+.light {
+  background-color: #f8f7fb;
+  color: #222;
+}
+
+.light .navbar {
+  background-color: #f4f4f4;
+}
+
+.light .nav-btn,
+.light .login-btn {
+  color: #222;
+}
+
+.light .nav-btn:hover,
+.light .login-btn:hover {
+  color: #007bff;
+}
+
+.light .homepage-header h1,
+.light .section h2,
+.light .slide-content h2 {
+  color: #222;
+}
+
+/* Dark Theme */
+.dark {
+  background-color: #222;
+  color: #f8f7fb;
+}
+
+.dark .navbar {
+  background-color: #333;
+}
+
+.dark .nav-btn,
+.dark .login-btn {
+  color: #f8f7fb;
+}
+
+.dark .nav-btn:hover,
+.dark .login-btn:hover {
+  color: #00bfff;
+}
+
+.dark .homepage-header h1,
+.dark .section h2,
+.dark .slide-content h2 {
+  color: #f8f7fb;
+}
+
+/* Slideshow Dots */
+.dot {
+  background-color: #bbb;
+}
+
+.dark .dot.active {
+  background-color: #00bfff;
+}
+
+.light .dot.active {
+  background-color: #007bff;
+}
+
+/* Sections */
+.light .section p,
+.light .homepage-header p {
+  color: #555;
+}
+
+.dark .section p,
+.dark .homepage-header p {
+  color: #ddd;
+}
