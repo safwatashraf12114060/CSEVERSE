@@ -1,5 +1,4 @@
 // src/components/AboutUs.js
-/*
 import React from "react";
 import "./AboutUs.css";
 import teamImage from "../assets/team.jpg"; // ধরলাম ছবির জন্য একটা placeholder
@@ -8,6 +7,14 @@ export default function AboutUs() {
   return (
     <div className="about-us">
       <div className="about-header">
+        <header className="header">
+        <div className="logo">CSEVerse</div>
+        <nav className="nav-links">
+          <a href="/">Home</a>
+          <a href="/ContactUs">Contact</a>
+          <a href="/login">Login</a>
+        </nav>
+      </header>
         <h1>About Us</h1>
         <p>
           Welcome to CSEVERSE! We are a passionate team committed to building
@@ -45,4 +52,3 @@ export default function AboutUs() {
     </div>
   );
 }
-*/
