@@ -1,63 +1,35 @@
 import React, { useState } from "react";
-import "./App.css";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import NavigationBar from "./Components/NavigationBar"; // Navbar import
 import HomePage from "./Pages/HomePage";
 import AboutUs from "./Pages/AboutUs";
 import ContactUs from "./Pages/ContactUs";
 import Login from "./Pages/Login";
 import Signup from "./Pages/Signup";
+import "./Components/Theme.css"; // Global theme styles
 
 function App() {
-  const [page, setPage] = useState("home"); // "home", "about", "contact", "login", "signup"
-  const [theme, setTheme] = useState("light"); // "light" / "dark"
+  const [theme, setTheme] = useState("light");
 
-  // Toggle theme
-  const toggleTheme = () => setTheme(theme === "light" ? "dark" : "light");
+  const toggleTheme = () => {
+    setTheme((prev) => (prev === "light" ? "dark" : "light"));
+  };
 
   return (
-    <div className={`App ${theme}`}>
-      {page === "home" && (
-        <HomePage
-          onHomeClick={() => setPage("home")}
-          onAboutClick={() => setPage("about")}
-          onContactClick={() => setPage("contact")}
-          onLoginClick={() => setPage("login")}
-          theme={theme}
-          toggleTheme={toggleTheme}
-        />
-      )}
-
-      {page === "about" && (
-        <AboutUs
-          onHomeClick={() => setPage("home")}
-          onContactClick={() => setPage("contact")}
-          onLoginClick={() => setPage("login")}
-        />
-      )}
-
-      {page === "contact" && (
-        <ContactUs
-          onHomeClick={() => setPage("home")}
-          onLoginClick={() => setPage("login")}
-        />
-      )}
-
-      {page === "login" && (
-        <Login
-          onLogin={() => setPage("home")}
-          onSignupClick={() => setPage("signup")}
-          theme={theme}
-          toggleTheme={toggleTheme}
-        />
-      )}
-
-      {page === "signup" && (
-        <Signup
-          onLoginClick={() => setPage("login")}
-          theme={theme}
-          toggleTheme={toggleTheme}
-        />
-      )}
-    </div>
+    <Router>
+      <div className={`app ${theme}`}>
+        <NavigationBar theme={theme} toggleTheme={toggleTheme} />
+        <div className="page-content">
+          <Routes>
+            <Route path="/" element={<HomePage theme={theme} toggleTheme={toggleTheme} />} />
+            <Route path="/about" element={<AboutUs theme={theme} toggleTheme={toggleTheme} />} />
+            <Route path="/contact" element={<ContactUs theme={theme} toggleTheme={toggleTheme} />} />
+            <Route path="/login" element={<Login theme={theme} toggleTheme={toggleTheme} />} />
+            <Route path="/signup" element={<Signup theme={theme} toggleTheme={toggleTheme} />} />
+          </Routes>
+        </div>
+      </div>
+    </Router>
   );
 }
 

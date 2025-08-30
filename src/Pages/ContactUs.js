@@ -1,21 +1,15 @@
+// src/components/ContactUs.js
 import React from "react";
 import "./ContactUs.css";
+import NavigationBar from "../Components/NavigationBar";
 
-function ContactUs() {
+function ContactUs({ theme, toggleTheme }) {
   return (
     <div className="contact-container">
-      {/* Header */}
-      <header className="header">
-        <div className="logo">CSEVerse</div>
-        <nav className="nav-links">
-          <a href="/">Home</a>
-          <a href="/about">About</a>
-          
-          <a href="/login">Login</a>
-        </nav>
-      </header>
+      {/* Navigation Bar */}
+      <NavigationBar theme={theme} toggleTheme={toggleTheme} />
 
-      {/* Contact Details */}
+      {/* Contact Content */}
       <main className="contact-content">
         <h2>Contact Us</h2>
 
@@ -41,6 +35,11 @@ function ContactUs() {
             <a href="mailto:CSEVerse@gmail.com">CSEVerse@gmail.com</a>
           </p>
         </div>
+
+        {/* Back to Home Button */}
+        <button className="back-btn" onClick={() => window.location.href = "/"}>
+          Back to Home
+        </button>
       </main>
     </div>
   );

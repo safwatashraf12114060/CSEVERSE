@@ -1,0 +1,107 @@
+/* Navbar container */
+.navbar {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f4f4f4;
+  padding: 8px 0;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  position: fixed;  
+  top: 0;
+  left: 0;
+  height: 60px;      
+  z-index: 1000;
+}
+
+/* Logo */
+.logo {
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: #222;
+  padding-left: 20px;
+}
+
+/* Nav links container */
+.nav-links {
+  display: flex;
+  list-style: none;
+  margin-right: 50px;  
+  align-items: center;
+}
+
+/* Each nav item (to maintain equal spacing) */
+.nav-links li {
+  margin-left: 12px;  /* horizontal distance between buttons */
+}
+
+/* All nav buttons (equal size box) */
+.nav-btn {
+  text-decoration: none;
+  font-weight: 500;
+  width: 120px;       
+  height: 45px;       
+  border-radius: 6px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;   /* vertical alignment fixed */
+  transition: all 0.2s;
+  background: #eee;
+  color: #222;
+  border: 1px solid #ccc;  /* subtle border added */
+  cursor: pointer;
+  box-sizing: border-box;   /* border included in size */
+  line-height: normal;       /* text vertical alignment fix */
+}
+
+/* Hover effect */
+.nav-btn:hover {
+  background: #ddd;
+  border-color: #999;
+}
+
+/* Login button (highlighted) */
+.login-btn {
+  background: #1877f2 !important;
+  color: white !important;
+  border: 1px solid #1877f2;  /* login button border matches bg */
+  display: flex;
+  justify-content: center;
+  align-items: center;         /* same vertical alignment as other buttons */
+  height: 45px;                /* ensures same height */
+  box-sizing: border-box;
+}
+
+.login-btn:hover {
+  background: #165eb8 !important;
+  border: 1px solid #165eb8;
+}
+
+/* Theme button (circle) */
+.theme-btn {
+  background: #eee;
+  border: 1px solid #ccc;   /* subtle border */
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  margin-left: 12px;  /* distance from previous button */
+  box-sizing: border-box;
+}
+
+.theme-btn:hover {
+  background: #ccc;
+  border-color: #aaa;
+}
+
+/* Page content spacing to prevent Navbar overlap */
+.page-content {
+  padding-top: 60px;  
+  box-sizing: border-box;
+}

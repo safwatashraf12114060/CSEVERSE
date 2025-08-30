@@ -1,5 +1,3 @@
-/* Buttons/ButtonClick.css */
-
 /* Navigation buttons */
 .nav-btn {
   background: transparent;
@@ -16,8 +14,8 @@
 
 /* Login button */
 .login-btn {
-  background:blueviolet;
-  color: blue;
+  background: blueviolet;
+  color: white;
   padding: 6px 14px;
   border-radius: 6px;
   border: none;
