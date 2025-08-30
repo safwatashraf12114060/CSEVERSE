@@ -20,12 +20,6 @@
   color: #007bff;
 }
 
-.light .homepage-header h1,
-.light .section h2,
-.light .slide-content h2 {
-  color: #222;
-}
-
 /* Dark Theme */
 .dark {
   background-color: #222;
@@ -44,34 +38,4 @@
 .dark .nav-btn:hover,
 .dark .login-btn:hover {
   color: #00bfff;
-}
-
-.dark .homepage-header h1,
-.dark .section h2,
-.dark .slide-content h2 {
-  color: #f8f7fb;
-}
-
-/* Slideshow Dots */
-.dot {
-  background-color: #bbb;
-}
-
-.dark .dot.active {
-  background-color: #00bfff;
-}
-
-.light .dot.active {
-  background-color: #007bff;
-}
-
-/* Sections */
-.light .section p,
-.light .homepage-header p {
-  color: #555;
-}
-
-.dark .section p,
-.dark .homepage-header p {
-  color: #ddd;
 }

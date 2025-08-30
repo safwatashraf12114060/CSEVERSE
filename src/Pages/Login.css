@@ -1,10 +1,22 @@
+/* Login.css */
+
+/* Page background based on theme */
+.login-page.light {
+  background-color: #f8f7fb;
+  color: #222;
+}
+
+.login-page.dark {
+  background-color: #222;
+  color: #f8f7fb;
+}
+
 /* Center container */
 .login-container {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #f8f7fb;
 }
 
 /* Box */
@@ -12,6 +24,10 @@
   text-align: center;
   max-width: 400px;
   width: 100%;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  background-color: inherit; /* theme dependent */
 }
 
 /* Headings */
@@ -30,6 +46,7 @@
 /* Inputs */
 .login-box input {
   width: 100%;
+  box-sizing: border-box; /* include padding & border */
   padding: 12px;
   margin: 8px 0;
   border: 1px solid #ddd;
@@ -45,10 +62,10 @@
 
 /* Login button */
 .login-btn {
-  width: 100%;
+  width: 100%; /* input এর সমান */
   padding: 12px;
   margin-top: 15px;
-  background-color: #007bff;
+  background-color: #1877f2; /* Facebook blue */
   color: white;
   font-weight: 600;
   border: none;
@@ -59,7 +76,7 @@
 }
 
 .login-btn:hover {
-  background-color: #0056b3;
+  background-color: #155db2;
 }
 
 /* Links */

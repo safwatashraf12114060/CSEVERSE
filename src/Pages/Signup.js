@@ -1,7 +1,8 @@
 import React, { useState } from "react";
+import NavigationBar from "../Components/NavigationBar";
 import "./Signup.css";
 
-export default function Signup() {
+export default function Signup({ theme, toggleTheme }) {
   const [formData, setFormData] = useState({
     fullName: "",
     contactNo: "",
@@ -42,17 +43,9 @@ export default function Signup() {
   };
 
   return (
-    <div className="signup-container">
-      {/* Navbar */}
-      <nav className="navbar">
-        <div className="logo">CSEVerse</div>
-        <div className="nav-links">
-          <button onClick={() => handleNavigation("home")}>Home</button>
-          <button onClick={() => handleNavigation("about")}>About</button>
-          <button onClick={() => handleNavigation("contact")}>Contact</button>
-          <button onClick={() => handleNavigation("login")}>Login</button>
-        </div>
-      </nav>
+    <div className={`signup-container ${theme}`}>
+      {/* Navigation Bar */}
+      <NavigationBar theme={theme} toggleTheme={toggleTheme} />
 
       {/* Signup Form */}
       <div className="form-wrapper">

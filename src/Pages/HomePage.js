@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
+import NavigationBar from "../Components/NavigationBar";
 import "./HomePage.css";
 
 const slides = [
-  { id: 1, text: "📘 Welcome to CSEVerse - A hub for CSE resources" },
-  { id: 2, text: "💡 Learn Data Structures & Algorithms easily" },
-  { id: 3, text: "📂 Access Notes, PDFs & Question Banks" },
-  { id: 4, text: "🚀 Prepare for your career with guidance" }
+  { id: 1, text: "📘 Placeholder Slide 1" },
+  { id: 2, text: "💡 Placeholder Slide 2" },
+  { id: 3, text: "📂 Placeholder Slide 3" },
+  { id: 4, text: "🚀 Placeholder Slide 4" }
 ];
 
-function HomePage({ onHomeClick, onAboutClick, onContactClick, onLoginClick, theme, toggleTheme }) {
+function HomePage({ theme, toggleTheme }) {
   const [current, setCurrent] = useState(0);
 
   useEffect(() => {
@@ -20,19 +21,12 @@ function HomePage({ onHomeClick, onAboutClick, onContactClick, onLoginClick, the
 
   return (
     <div className="homepage">
-      <nav className="navbar">
-        <div className="logo" onClick={onHomeClick} style={{cursor:"pointer"}}>CSEVerse</div>
-        <div className="nav-links">
-          <button className="nav-btn" onClick={onHomeClick}>Home</button>
-          <button className="nav-btn" onClick={onAboutClick}>About</button>
-          <button className="nav-btn" onClick={onContactClick}>Contacts</button>
-          <div className="theme-box" onClick={toggleTheme}>{theme === "light" ? "☀️" : "🌙"}</div>
-          <button className="login-btn" onClick={onLoginClick}>Login</button>
-        </div>
-      </nav>
+      {/* Navigation Bar */}
+      <NavigationBar theme={theme} toggleTheme={toggleTheme} />
 
+      {/* Slideshow Section */}
       <div className="slideshow">
-        <h2>{slides[current].text}</h2>
+        <div className="slide">{slides[current].text}</div>
         <div className="dots">
           {slides.map((_, i) => (
             <span
@@ -44,10 +38,27 @@ function HomePage({ onHomeClick, onAboutClick, onContactClick, onLoginClick, the
         </div>
       </div>
 
-      <div className="homepage-header">
-        <h1>Welcome to CSEVerse</h1>
-        <p>Explore comprehensive Computer Science resources including notes, PDFs, and question banks to support your academic journey.</p>
-      </div>
+      {/* Sections */}
+      <section className="section">
+        <h2>Welcome to CSEVerse</h2>
+        <p>
+          Explore comprehensive Computer Science resources including notes, PDFs, and question banks to support your academic journey.
+        </p>
+      </section>
+
+      <section className="section">
+        <h2>About CSEVerse</h2>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.
+        </p>
+      </section>
+
+      <section className="section">
+        <h2>Features</h2>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.
+        </p>
+      </section>
     </div>
   );
 }

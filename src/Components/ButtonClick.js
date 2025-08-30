@@ -1,4 +1,3 @@
-// Buttons/ButtonClick.js
 import React from "react";
 import "./ButtonClick.css";
 

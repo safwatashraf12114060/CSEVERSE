@@ -1,20 +1,16 @@
-// src/components/AboutUs.js
 import React from "react";
+import NavigationBar from "../Components/NavigationBar";
 import "./AboutUs.css";
-import teamImage from "../assets/team.jpg"; // ধরলাম ছবির জন্য একটা placeholder
+import teamImage from "../assets/team.jpg"; // ধরলাম ছবির জন্য placeholder
 
-export default function AboutUs() {
+export default function AboutUs({ theme, toggleTheme }) {
   return (
-    <div className="about-us">
+    <div className={`about-us ${theme}`}>
+      {/* NavigationBar with theme */}
+      <NavigationBar theme={theme} toggleTheme={toggleTheme} />
+
+      {/* About Header */}
       <div className="about-header">
-        <header className="header">
-        <div className="logo">CSEVerse</div>
-        <nav className="nav-links">
-          <a href="/">Home</a>
-          <a href="/ContactUs">Contact</a>
-          <a href="/login">Login</a>
-        </nav>
-      </header>
         <h1>About Us</h1>
         <p>
           Welcome to CSEVERSE! We are a passionate team committed to building
@@ -22,6 +18,7 @@ export default function AboutUs() {
         </p>
       </div>
 
+      {/* About Content */}
       <div className="about-content">
         <div className="about-text">
           <h2>Our Mission</h2>
@@ -42,6 +39,7 @@ export default function AboutUs() {
         </div>
       </div>
 
+      {/* About Footer */}
       <div className="about-footer">
         <h3>Meet the Team</h3>
         <p>
