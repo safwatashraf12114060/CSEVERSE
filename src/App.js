@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import NavigationBar from "./Components/NavigationBar"; // Navbar import
+import NavigationBar from "./Components/NavigationBar";
 import HomePage from "./Pages/HomePage";
 import AboutUs from "./Pages/AboutUs";
 import ContactUs from "./Pages/ContactUs";
 import Login from "./Pages/Login";
 import Signup from "./Pages/Signup";
-import "./Components/Theme.css"; // Global theme styles
+import "./Components/Theme.css";
 
 function App() {
   const [theme, setTheme] = useState("light");

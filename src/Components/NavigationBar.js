@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import "./NavigationBar.css";
 
 function NavigationBar({ theme, toggleTheme }) {
-  const location = useLocation();   // বর্তমান রুট চেক করার জন্য
+  const location = useLocation();
 
   return (
     <nav className="navbar">
@@ -20,7 +20,7 @@ function NavigationBar({ theme, toggleTheme }) {
           <li><Link to="/login" className="nav-btn login-btn">Login</Link></li>
         )}
 
-        {/* Theme button (right-most) */}
+        {/* Theme button */}
         <li>
           <button className="theme-btn" onClick={toggleTheme}>
             {theme === "light" ? "🌙" : "☀️"}

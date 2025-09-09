@@ -17,38 +17,39 @@ export default function Signup() {
   const handleChange = (e) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value.trimStart(), // 🔹 leading space remove
     });
   };
 
   const handleSignup = async (e) => {
     e.preventDefault();
-    
+
     if (formData.password !== formData.confirmPassword) {
       alert("Passwords do not match!");
       return;
     }
 
     try {
+      // 🔹 Correct backend port (usually 5000 for MERN)
       const response = await fetch("http://localhost:5000/api/students/signup", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           fullName: formData.fullName,
           contactNo: formData.contactNo,
           address: formData.address,
-          idNumber: formData.idNumber,
+          idNumber: formData.idNumber.toUpperCase(), // 🔹 match backend uppercase
           semester: formData.semester,
           year: formData.year,
-          eduMail: formData.eduMail,
+          eduMail: formData.eduMail.toLowerCase(), // 🔹 match backend lowercase
           password: formData.password,
         }),
       });
 
       const data = await response.json();
-      
+
       if (response.ok) {
         alert("Signup successful! Redirecting to login page...");
         window.location.href = "/login";
@@ -65,6 +66,7 @@ export default function Signup() {
       <div className="form-wrapper">
         <h2>Create your account</h2>
         <form onSubmit={handleSignup} className="signup-form">
+          {/* Full Name */}
           <label>Full Name</label>
           <input 
             type="text" 
@@ -73,7 +75,8 @@ export default function Signup() {
             onChange={handleChange} 
             required 
           />
-          
+
+          {/* Contact Number */}
           <label>Contact Number</label>
           <input 
             type="text" 
@@ -81,8 +84,11 @@ export default function Signup() {
             value={formData.contactNo} 
             onChange={handleChange} 
             required 
+            pattern="[0-9]{10,15}" // 🔹 basic number validation
+            title="Enter a valid contact number"
           />
-          
+
+          {/* Address */}
           <label>Address</label>
           <input 
             type="text" 
@@ -91,7 +97,8 @@ export default function Signup() {
             onChange={handleChange} 
             required 
           />
-          
+
+          {/* ID Number */}
           <label>ID Number</label>
           <input 
             type="text" 
@@ -100,7 +107,8 @@ export default function Signup() {
             onChange={handleChange} 
             required 
           />
-          
+
+          {/* Semester */}
           <label>Semester</label>
           <select 
             name="semester" 
@@ -114,7 +122,8 @@ export default function Signup() {
             <option value="3">3rd Semester</option>
             <option value="4">4th Semester</option>
           </select>
-          
+
+          {/* Year */}
           <label>Year</label>
           <select 
             name="year" 
@@ -128,7 +137,8 @@ export default function Signup() {
             <option value="3">3rd Year</option>
             <option value="4">4th Year</option>
           </select>
-          
+
+          {/* Educational Email */}
           <label>Educational Email</label>
           <input 
             type="email" 
@@ -137,7 +147,8 @@ export default function Signup() {
             onChange={handleChange} 
             required 
           />
-          
+
+          {/* Password */}
           <label>Password</label>
           <input 
             type="password" 
@@ -145,8 +156,10 @@ export default function Signup() {
             value={formData.password} 
             onChange={handleChange} 
             required 
+            minLength={6} // 🔹 minimum password length
           />
-          
+
+          {/* Confirm Password */}
           <label>Confirm Password</label>
           <input 
             type="password" 
@@ -155,7 +168,7 @@ export default function Signup() {
             onChange={handleChange} 
             required 
           />
-          
+
           <button type="submit" className="signup-btn">
             Sign Up
           </button>
