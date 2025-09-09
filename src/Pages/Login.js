@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import NavigationBar from "../Components/NavigationBar";
 import "./Login.css";
 
-function Login({ theme, toggleTheme }) {
+function Login({ theme, toggleTheme, setUser }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
@@ -23,7 +23,8 @@ function Login({ theme, toggleTheme }) {
 
       if (response.ok) {
         setMessage("✅ Login successful!");
-        navigate("/");   // Home এ redirect
+        setUser(data.student);
+        navigate("/");
       } else {
         setMessage(`❌ ${data.error}`);
       }
