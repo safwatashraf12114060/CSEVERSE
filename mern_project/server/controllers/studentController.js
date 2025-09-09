@@ -1,28 +1,36 @@
 import Student from "../models/Student.js";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 
-// Get all students
+// GET all students
 export const getStudent = async (req, res) => {
   try {
     const students = await Student.find();
-    res.json(students);
+    res.status(200).json(students);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
 
-// Create new student
+// POST new student
 export const newStudent = async (req, res) => {
   try {
     const { fullName, contactNo, address, idNumber, semester, year, eduMail, password } = req.body;
 
-    // Check if email already exists
-    const existingStudent = await Student.findOne({ eduMail });
-    if (existingStudent) {
-      return res.status(400).json({ error: "Email already registered" });
+    // 🔹 Validation
+    if (!fullName || !contactNo || !address || !idNumber || !semester || !year || !eduMail || !password) {
+      return res.status(400).json({ error: "All fields are required" });
     }
 
-    // Hash password
+    // 🔹 Duplicate check
+    const existingStudent = await Student.findOne({
+      $or: [{ eduMail }, { idNumber }]
+    });
+
+    if (existingStudent) {
+      return res.status(409).json({ error: "Student with this eduMail or ID already exists" });
+    }
+
+    // 🔹 Hash password
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const student = new Student({
@@ -33,12 +41,14 @@ export const newStudent = async (req, res) => {
       semester,
       year,
       eduMail,
-      password: hashedPassword,
+      password: hashedPassword
     });
 
     await student.save();
-    res.status(201).json({ message: "Signup successful!" });
+    res.status(201).json({ message: "Signup successful!", student });
+
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error(error);
+    res.status(500).json({ message: "Server error. Try again later." });
   }
 };
