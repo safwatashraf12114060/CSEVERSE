@@ -6,29 +6,66 @@ import AboutUs from "./Pages/AboutUs";
 import ContactUs from "./Pages/ContactUs";
 import Login from "./Pages/Login";
 import Signup from "./Pages/Signup";
-import Profile from "./Pages/Profile";   // নতুন যোগ
+import Profile from "./Pages/Profile";
 import "./Components/Theme.css";
 
 function App() {
   const [theme, setTheme] = useState("light");
-  const [user, setUser] = useState(null);   // লগইন হওয়া user ধরে রাখবে
+  const [user, setUser] = useState(null);   // ✅ Global user state
+  
+  console.log("App component - Current user state:", user); // 🔍 Debug line
 
   const toggleTheme = () => {
-    setTheme((prev) => (prev === "light" ? "dark" : "light"));
+    setTheme(prev => (prev === "light" ? "dark" : "light"));
   };
 
   return (
     <Router>
       <div className={`app ${theme}`}>
-        <NavigationBar theme={theme} toggleTheme={toggleTheme} user={user} setUser={setUser} />
+        {/* Navbar সব page এ consistent, user state পাঠানো হচ্ছে */}
+        <NavigationBar 
+          theme={theme}
+          toggleTheme={toggleTheme}
+          user={user}
+          setUser={setUser}
+        />
+
         <div className="page-content">
           <Routes>
-            <Route path="/" element={<HomePage theme={theme} toggleTheme={toggleTheme} />} />
-            <Route path="/about" element={<AboutUs theme={theme} toggleTheme={toggleTheme} />} />
-            <Route path="/contact" element={<ContactUs theme={theme} toggleTheme={toggleTheme} />} />
-            <Route path="/login" element={<Login theme={theme} toggleTheme={toggleTheme} setUser={setUser} />} />
-            <Route path="/signup" element={<Signup theme={theme} toggleTheme={toggleTheme} />} />
-            <Route path="/profile" element={<Profile theme={theme} toggleTheme={toggleTheme} user={user} />} />
+            {/* Public pages */}
+            <Route path="/" element={<HomePage theme={theme} toggleTheme={toggleTheme} user={user} />} />
+            <Route path="/about" element={<AboutUs theme={theme} toggleTheme={toggleTheme} user={user} />} />
+            <Route path="/contact" element={<ContactUs theme={theme} toggleTheme={toggleTheme} user={user} />} />
+
+            {/* Authentication pages */}
+            <Route 
+              path="/login" 
+              element={
+                <Login 
+                  theme={theme}
+                  toggleTheme={toggleTheme}
+                  setUser={setUser}  // ✅ Login success হলে global user set হবে
+                  user={user}       // Navbar ঠিক দেখানোর জন্য
+                />
+              }
+            />
+            <Route 
+              path="/signup" 
+              element={<Signup theme={theme} toggleTheme={toggleTheme} user={user} />}
+            />
+
+            {/* Profile page */}
+            <Route 
+              path="/profile" 
+              element={
+                <Profile 
+                  theme={theme}
+                  toggleTheme={toggleTheme}
+                  user={user}                      
+                  setUser={setUser}
+                />
+              }
+            />
           </Routes>
         </div>
       </div>

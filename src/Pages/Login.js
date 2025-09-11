@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import NavigationBar from "../Components/NavigationBar";
+import { useNavigate, Link } from "react-router-dom";
 import "./Login.css";
 
-function Login({ theme, toggleTheme, setUser }) {
+function Login({ theme, toggleTheme, setUser, user }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
@@ -11,37 +10,35 @@ function Login({ theme, toggleTheme, setUser }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
       const response = await fetch("http://localhost:5000/api/students/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ eduMail: email, password }),
       });
-
       const data = await response.json();
-
       if (response.ok) {
+        console.log("Backend response:", data); // Debug line
+        console.log("Student data:", data.student); // Debug line
         setMessage("✅ Login successful!");
-        setUser(data.student);
-        navigate("/");
+        setUser(data.student);   // ✅ global user set
+        console.log("User set successfully"); // Debug line
+        navigate("/");           // ✅ home redirect
       } else {
         setMessage(`❌ ${data.error}`);
       }
     } catch (error) {
-      console.error("Error:", error);
+      console.error(error);
       setMessage("⚠️ Something went wrong");
     }
   };
 
   return (
     <div className={`login-page ${theme}`}>
-      <NavigationBar theme={theme} toggleTheme={toggleTheme} />
       <div className="login-container">
         <div className="login-box">
           <h1>Welcome Back!</h1>
           <p>Log in to your account</p>
-
           <form onSubmit={handleSubmit}>
             <input
               type="email"
@@ -59,12 +56,10 @@ function Login({ theme, toggleTheme, setUser }) {
             />
             <button type="submit" className="login-btn">Login</button>
           </form>
-
           {message && <p>{message}</p>}
-
           <div className="login-links">
             <a href="#">Forgot Password?</a>
-            <p>Don’t have an account? <Link to="/signup">Sign up</Link></p>
+            <p>Don't have an account? <Link to="/signup">Sign up</Link></p>
           </div>
         </div>
       </div>
