@@ -33,9 +33,39 @@ function App() {
         <div className="page-content">
           <Routes>
             {/* Public pages */}
-            <Route path="/" element={<HomePage theme={theme} toggleTheme={toggleTheme} user={user} />} />
-            <Route path="/about" element={<AboutUs theme={theme} toggleTheme={toggleTheme} user={user} />} />
-            <Route path="/contact" element={<ContactUs theme={theme} toggleTheme={toggleTheme} user={user} />} />
+            <Route 
+              path="/" 
+              element={
+                <HomePage 
+                  theme={theme} 
+                  toggleTheme={toggleTheme} 
+                  user={user} 
+                  setUser={setUser}
+                />
+              } 
+            />
+            <Route 
+              path="/about" 
+              element={
+                <AboutUs 
+                  theme={theme} 
+                  toggleTheme={toggleTheme} 
+                  user={user} 
+                  setUser={setUser}
+                />
+              } 
+            />
+            <Route 
+              path="/contact" 
+              element={
+                <ContactUs 
+                  theme={theme} 
+                  toggleTheme={toggleTheme} 
+                  user={user} 
+                  setUser={setUser}
+                />
+              } 
+            />
 
             {/* Authentication pages */}
             <Route 

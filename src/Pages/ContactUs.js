@@ -3,11 +3,16 @@ import React from "react";
 import "./ContactUs.css";
 import NavigationBar from "../Components/NavigationBar";
 
-function ContactUs({ theme, toggleTheme }) {
+function ContactUs({ theme, toggleTheme, user, setUser }) {
   return (
     <div className="contact-container">
       {/* Navigation Bar */}
-      <NavigationBar theme={theme} toggleTheme={toggleTheme} />
+      <NavigationBar 
+        theme={theme} 
+        toggleTheme={toggleTheme} 
+        user={user} 
+        setUser={setUser} 
+      />
 
       {/* Contact Content */}
       <main className="contact-content">

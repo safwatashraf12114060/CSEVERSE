@@ -9,7 +9,7 @@ const slides = [
   { id: 4, text: "🚀 Placeholder Slide 4" }
 ];
 
-function HomePage({ theme, toggleTheme }) {
+function HomePage({ theme, toggleTheme, user, setUser }) {
   const [current, setCurrent] = useState(0);
 
   useEffect(() => {
@@ -22,7 +22,12 @@ function HomePage({ theme, toggleTheme }) {
   return (
     <div className="homepage">
       {/* Navigation Bar */}
-      <NavigationBar theme={theme} toggleTheme={toggleTheme} />
+      <NavigationBar 
+        theme={theme} 
+        toggleTheme={toggleTheme} 
+        user={user} 
+        setUser={setUser} 
+      />
 
       {/* Slideshow Section */}
       <div className="slideshow">

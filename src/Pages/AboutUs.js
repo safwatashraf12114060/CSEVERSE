@@ -3,11 +3,16 @@ import NavigationBar from "../Components/NavigationBar";
 import "./AboutUs.css";
 import teamImage from "../assets/team.jpg"; // ধরলাম ছবির জন্য placeholder
 
-export default function AboutUs({ theme, toggleTheme }) {
+export default function AboutUs({ theme, toggleTheme, user, setUser }) {
   return (
-    <div className={`about-us ${theme}`}>
-      {/* NavigationBar with theme */}
-      <NavigationBar theme={theme} toggleTheme={toggleTheme} />
+    <div className="about-us">
+      {/* Navigation Bar */}
+      <NavigationBar
+        theme={theme}
+        toggleTheme={toggleTheme}
+        user={user}
+        setUser={setUser}
+      />
 
       {/* About Header */}
       <div className="about-header">
