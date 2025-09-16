@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import NavigationBar from "./Components/NavigationBar"; 
 import HomePage from "./Pages/HomePage";
@@ -10,10 +10,15 @@ import Profile from "./Pages/Profile";
 import "./Components/Theme.css";
 
 function App() {
-  const [theme, setTheme] = useState("light");
+  // Read theme from localStorage or default to "light"
+  const [theme, setTheme] = useState(() => localStorage.getItem("theme") || "light");
   const [user, setUser] = useState(null);   // ✅ Global user state
   
   console.log("App component - Current user state:", user); // 🔍 Debug line
+
+  useEffect(() => {
+    localStorage.setItem("theme", theme);
+  }, [theme]);
 
   const toggleTheme = () => {
     setTheme(prev => (prev === "light" ? "dark" : "light"));

@@ -264,6 +264,26 @@ body {
   to { opacity: 1; transform: translateY(0); }
 }
 
+.password-wrapper {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.password-wrapper input {
+  flex: 1;
+  padding-right: 40px; /* space for button */
+}
+
+.show-password-btn {
+  position: absolute;
+  right: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+}
+
 /* -------- Responsive Design -------- */
 @media (max-width: 768px) {
   .signup-container {

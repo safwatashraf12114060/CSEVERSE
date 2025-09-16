@@ -5,6 +5,7 @@ import "./Login.css";
 function Login({ theme, toggleTheme, setUser, user }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false); // <-- Add this line
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
 
@@ -18,17 +19,13 @@ function Login({ theme, toggleTheme, setUser, user }) {
       });
       const data = await response.json();
       if (response.ok) {
-        console.log("Backend response:", data); // Debug line
-        console.log("Student data:", data.student); // Debug line
         setMessage("✅ Login successful!");
-        setUser(data.student);   // ✅ global user set
-        console.log("User set successfully"); // Debug line
-        navigate("/");           // ✅ home redirect
+        setUser(data.student);
+        navigate("/");
       } else {
         setMessage(`❌ ${data.error}`);
       }
     } catch (error) {
-      console.error(error);
       setMessage("⚠️ Something went wrong");
     }
   };
@@ -48,12 +45,24 @@ function Login({ theme, toggleTheme, setUser, user }) {
               required
             />
             <input
-              type="password"
+              type={showPassword ? "text" : "password"}
               placeholder="Enter password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
             />
+            {/* Show Password Toggle */}
+            <div className="show-password-toggle">
+              <input
+                type="checkbox"
+                checked={showPassword}
+                onChange={() => setShowPassword(!showPassword)}
+                id="showPassword"
+              />
+              <label htmlFor="showPassword" style={{ margin: 0, cursor: "pointer" }}>
+                Show Password
+              </label>
+            </div>
             <button type="submit" className="login-btn">Login</button>
           </form>
           {message && <p>{message}</p>}
