@@ -60,6 +60,44 @@
   border: 1px solid #007bff;
 }
 
+/* Password visibility toggle */
+.password-wrapper {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.password-wrapper input {
+  flex: 1;
+  padding-right: 40px; /* space for button */
+}
+
+.show-password-btn {
+  position: absolute;
+  right: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+/* Show Password Checkbox Styling */
+.show-password-toggle {
+  display: flex;
+  align-items: center;
+  margin: 0 0 8px 0;
+  font-size: 15px;
+  gap: 8px;
+  user-select: none;
+}
+
+.show-password-toggle input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: #1877f2;
+  margin-right: 6px;
+}
+
 /* Login button */
 .login-btn {
   width: 100%; /* input এর সমান */
