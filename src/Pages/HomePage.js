@@ -89,7 +89,11 @@ function HomePage({ theme, toggleTheme, user, setUser }) {
         {/* Only show features-grid after login */}
         {user && (
           <div className="features-grid">
-            <div className="feature-item">
+            <div
+              className="feature-item"
+              style={{ cursor: "pointer" }}
+              onClick={() => navigate("/select-year-semester")}
+            >
               <div className="feature-icon">🎓</div>
               <h3>Study Resources</h3>
               <p>Notes, PDFs, Question Banks & Solutions</p>

@@ -7,6 +7,7 @@ import ContactUs from "./Pages/ContactUs";
 import Login from "./Pages/Login";
 import Signup from "./Pages/Signup";
 import Profile from "./Pages/Profile";
+import YearSemesterSelector from './Pages/YearSemesterSelectionPage';
 import "./Components/Theme.css";
 
 function App() {
@@ -101,6 +102,7 @@ function App() {
                 />
               }
             />
+            <Route path="/select-year-semester" element={<YearSemesterSelector />} />
           </Routes>
         </div>
       </div>
