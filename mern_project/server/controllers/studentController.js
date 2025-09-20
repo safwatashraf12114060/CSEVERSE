@@ -52,3 +52,59 @@ export const newStudent = async (req, res) => {
     res.status(500).json({ message: "Server error. Try again later." });
   }
 };
+
+// Update student profile
+export const updateStudentProfile = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { fullName, contactNo, address, semester, year } = req.body;
+
+    const updatedStudent = await Student.findByIdAndUpdate(
+      id,
+      { fullName, contactNo, address, semester, year },
+      { new: true, runValidators: true }
+    );
+
+    if (!updatedStudent) {
+      return res.status(404).json({ error: "Student not found" });
+    }
+
+    res.status(200).json({
+      message: "Profile updated successfully",
+      student: updatedStudent
+    });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
+// Upload profile picture
+export const uploadProfilePicture = async (req, res) => {
+  try {
+    const { id } = req.params;
+    
+    // Assuming you're using multer for file uploads
+    if (!req.file) {
+      return res.status(400).json({ error: "No file uploaded" });
+    }
+
+    const profilePicture = req.file.filename; // or req.file.path
+
+    const updatedStudent = await Student.findByIdAndUpdate(
+      id,
+      { profilePicture },
+      { new: true }
+    );
+
+    if (!updatedStudent) {
+      return res.status(404).json({ error: "Student not found" });
+    }
+
+    res.status(200).json({
+      message: "Profile picture uploaded successfully",
+      student: updatedStudent
+    });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};

@@ -4,39 +4,46 @@ const studentSchema = new mongoose.Schema({
   fullName: {
     type: String,
     required: true,
+    trim: true
   },
   contactNo: {
     type: String,
-    required: true,
+    required: true
   },
   address: {
     type: String,
-    required: true,
+    required: true
   },
   idNumber: {
     type: String,
     required: true,
-    unique: true,
+    unique: true
   },
   semester: {
     type: Number,
-    required: true,
+    required: true
   },
   year: {
     type: Number,
-    required: true,
+    required: true
   },
   eduMail: {
     type: String,
     required: true,
-    unique: true,
+    unique: true
   },
   password: {
     type: String,
-    required: true,
+    required: true
   },
+  profilePicture: {
+    type: String,
+    default: null
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now
+  }
 });
 
-const Student = mongoose.model("Student", studentSchema);
-
-export default Student;
+export default mongoose.model("Student", studentSchema);
