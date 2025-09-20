@@ -1,11 +1,12 @@
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useResourceContext } from '../Context/ResourceContext';
 import slide1 from "../assets/Slide 1.jpg";
 import slide2 from "../assets/Slide 2.jpg";
 import slide3 from "../assets/Slide 3.jpg";
 import slide4 from "../assets/Slide 4.png";
 import NavigationBar from "../Components/NavigationBar";
 import "./HomePage.css";
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 
 const slides = [
   { id: 1, text: "Welcome to CSEVerse!", img: slide1 },
@@ -18,6 +19,7 @@ function HomePage({ theme, toggleTheme, user, setUser }) {
   const [current, setCurrent] = useState(0);
   const navigate = useNavigate();
   const [showLoginMsg, setShowLoginMsg] = useState(false);
+  const { resources, dispatch } = useResourceContext();
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -25,6 +27,23 @@ function HomePage({ theme, toggleTheme, user, setUser }) {
     }, 3000);
     return () => clearInterval(timer);
   }, []);
+
+  useEffect(() => {
+    const fetchResources = async () => {
+      try {
+        const response = await fetch('/api/resources');
+        const json = await response.json();
+        
+        if (response.ok) {
+          dispatch({ type: 'SET_RESOURCES', payload: json.resources || json });
+        }
+      } catch (error) {
+        console.error("Error fetching resources:", error);
+      }
+    };
+    
+    fetchResources();
+  }, [dispatch]);
 
   const handleGetStarted = () => {
     if (!user) {
@@ -35,6 +54,9 @@ function HomePage({ theme, toggleTheme, user, setUser }) {
       }, 1200);
     }
   };
+
+  // Filter resources to show only a few for the homepage
+  const featuredResources = resources ? resources.slice(0, 6) : [];
 
   return (
     <div className="homepage">
@@ -120,6 +142,48 @@ function HomePage({ theme, toggleTheme, user, setUser }) {
           </p>
         </div>
       </section>
+
+      {/* Featured Resources Section - Only show if user is logged in */}
+      {user && resources && resources.length > 0 && (
+        <section className="featured-resources">
+          <h2>Featured <span className="gradient-text">Study Resources</span></h2>
+          <p className="section-description">
+            Discover the latest study materials shared by the CSEVerse community
+          </p>
+          
+          <div className="resources-grid">
+            {featuredResources.map(resource => (
+              <div key={resource._id} className="resource-card">
+                <div className="resource-type-badge">{resource.type}</div>
+                <h3>{resource.title}</h3>
+                <p className="resource-subject">{resource.subject}</p>
+                <p className="resource-description">{resource.description}</p>
+                <div className="resource-actions">
+                  <a 
+                    href={resource.url} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="resource-link"
+                  >
+                    View Resource
+                  </a>
+                </div>
+              </div>
+            ))}
+          </div>
+          
+          {resources.length > 6 && (
+            <div className="view-all-container">
+              <button 
+                className="view-all-btn"
+                onClick={() => navigate("/resources")}
+              >
+                View All Resources ({resources.length})
+              </button>
+            </div>
+          )}
+        </section>
+      )}
 
       <section className="features-showcase">
         <h2>Platform <span className="gradient-text">Features</span></h2>

@@ -8,6 +8,7 @@ import Login from "./Pages/Login";
 import Signup from "./Pages/Signup";
 import Profile from "./Pages/Profile";
 import YearSemesterSelector from './Pages/YearSemesterSelectionPage';
+import { ResourceContextProvider } from './Context/ResourceContext';
 import "./Components/Theme.css";
 
 function App() {
@@ -26,87 +27,89 @@ function App() {
   };
 
   return (
-    <Router>
-      <div className={`app ${theme}`}>
-        {/* Navbar সব page এ consistent, user state পাঠানো হচ্ছে */}
-        <NavigationBar 
-          theme={theme}
-          toggleTheme={toggleTheme}
-          user={user}
-          setUser={setUser}
-        />
+    <ResourceContextProvider>
+      <Router>
+        <div className={`app ${theme}`}>
+          {/* Navbar সব page এ consistent, user state পাঠানো হচ্ছে */}
+          <NavigationBar 
+            theme={theme}
+            toggleTheme={toggleTheme}
+            user={user}
+            setUser={setUser}
+          />
 
-        <div className="page-content">
-          <Routes>
-            {/* Public pages */}
-            <Route 
-              path="/" 
-              element={
-                <HomePage 
-                  theme={theme} 
-                  toggleTheme={toggleTheme} 
-                  user={user} 
-                  setUser={setUser}
-                />
-              } 
-            />
-            <Route 
-              path="/about" 
-              element={
-                <AboutUs 
-                  theme={theme} 
-                  toggleTheme={toggleTheme} 
-                  user={user} 
-                  setUser={setUser}
-                />
-              } 
-            />
-            <Route 
-              path="/contact" 
-              element={
-                <ContactUs 
-                  theme={theme} 
-                  toggleTheme={toggleTheme} 
-                  user={user} 
-                  setUser={setUser}
-                />
-              } 
-            />
+          <div className="page-content">
+            <Routes>
+              {/* Public pages */}
+              <Route 
+                path="/" 
+                element={
+                  <HomePage 
+                    theme={theme} 
+                    toggleTheme={toggleTheme} 
+                    user={user} 
+                    setUser={setUser}
+                  />
+                } 
+              />
+              <Route 
+                path="/about" 
+                element={
+                  <AboutUs 
+                    theme={theme} 
+                    toggleTheme={toggleTheme} 
+                    user={user} 
+                    setUser={setUser}
+                  />
+                } 
+              />
+              <Route 
+                path="/contact" 
+                element={
+                  <ContactUs 
+                    theme={theme} 
+                    toggleTheme={toggleTheme} 
+                    user={user} 
+                    setUser={setUser}
+                  />
+                } 
+              />
 
-            {/* Authentication pages */}
-            <Route 
-              path="/login" 
-              element={
-                <Login 
-                  theme={theme}
-                  toggleTheme={toggleTheme}
-                  setUser={setUser}  // ✅ Login success হলে global user set হবে
-                  user={user}       // Navbar ঠিক দেখানোর জন্য
-                />
-              }
-            />
-            <Route 
-              path="/signup" 
-              element={<Signup theme={theme} toggleTheme={toggleTheme} user={user} />}
-            />
+              {/* Authentication pages */}
+              <Route 
+                path="/login" 
+                element={
+                  <Login 
+                    theme={theme}
+                    toggleTheme={toggleTheme}
+                    setUser={setUser}  // ✅ Login success হলে global user set হবে
+                    user={user}       // Navbar ঠিক দেখানোর জন্য
+                  />
+                }
+              />
+              <Route 
+                path="/signup" 
+                element={<Signup theme={theme} toggleTheme={toggleTheme} user={user} />}
+              />
 
-            {/* Profile page */}
-            <Route 
-              path="/profile" 
-              element={
-                <Profile 
-                  theme={theme}
-                  toggleTheme={toggleTheme}
-                  user={user}                      
-                  setUser={setUser}
-                />
-              }
-            />
-            <Route path="/select-year-semester" element={<YearSemesterSelector />} />
-          </Routes>
+              {/* Profile page */}
+              <Route 
+                path="/profile" 
+                element={
+                  <Profile 
+                    theme={theme}
+                    toggleTheme={toggleTheme}
+                    user={user}                      
+                    setUser={setUser}
+                  />
+                }
+              />
+              <Route path="/select-year-semester" element={<YearSemesterSelector />} />
+            </Routes>
+          </div>
         </div>
-      </div>
-    </Router>
+      </Router>
+    </ResourceContextProvider>
   );
 }
 
