@@ -5,6 +5,8 @@ import HomePage from "./Pages/HomePage";
 import AboutUs from "./Pages/AboutUs";
 import ContactUs from "./Pages/ContactUs";
 import Login from "./Pages/Login";
+import ForgotPassword from "./Pages/ForgotPassword";
+import ResetPassword from "./Pages/ResetPassword";
 import Signup from "./Pages/Signup";
 import Profile from "./Pages/Profile";
 import YearSemesterSelector from './Pages/YearSemesterSelectionPage';
@@ -82,10 +84,18 @@ function App() {
                   <Login 
                     theme={theme}
                     toggleTheme={toggleTheme}
-                    setUser={setUser}  // ✅ Login success হলে global user set হবে
-                    user={user}       // Navbar ঠিক দেখানোর জন্য
+                    setUser={setUser}
+                    user={user}
                   />
                 }
+              />
+              <Route 
+                path="/forgot-password" 
+                element={<ForgotPassword theme={theme} toggleTheme={toggleTheme} />} 
+              />
+              <Route 
+                path="/reset-password/:token" 
+                element={<ResetPassword theme={theme} toggleTheme={toggleTheme} />} 
               />
               <Route 
                 path="/signup" 
@@ -104,7 +114,17 @@ function App() {
                   />
                 }
               />
-              <Route path="/select-year-semester" element={<YearSemesterSelector />} />
+              <Route 
+                path="/select-year-semester" 
+                element={
+                  <YearSemesterSelector 
+                    theme={theme}
+                    toggleTheme={toggleTheme}
+                    user={user}
+                    setUser={setUser}
+                  />
+                }
+              />
             </Routes>
           </div>
         </div>

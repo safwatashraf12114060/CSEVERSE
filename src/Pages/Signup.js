@@ -31,7 +31,7 @@ export default function Signup() {
   };
 
   const validateMobile = (mobile) => {
-    const validPrefixes = ["019", "017", "013", "015", "016", "014"];
+    const validPrefixes = ["019", "017", "013", "015", "016", "014","018"];
     return (
       validPrefixes.some((prefix) => mobile.startsWith(prefix)) &&
       mobile.length === 11

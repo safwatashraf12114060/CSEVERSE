@@ -2,10 +2,13 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import path from "path";
-import { fileURLToPath } from 'url';
+import { fileURLToPath } from "url";
 import connectDb from "./db/connect.js";
+
+// Routes
 import studentRouter from "./routes/studentRoutes.js";
 import resourceRouter from "./routes/resourceRoutes.js";
+import authRoutes from "./routes/authRoutes.js";   // 🔹 নতুন যুক্ত
 
 dotenv.config();
 connectDb();
@@ -18,17 +21,19 @@ const __dirname = path.dirname(__filename);
 // Middleware
 app.use(cors());
 app.use(express.json());
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // API Routes
 app.use("/api/students", studentRouter);
 app.use("/api/resources", resourceRouter);
+app.use("/api/auth", authRoutes);   // 🔹 নতুন যুক্ত
 
-// Health check
-app.get('/api/health', (req, res) => {
-  res.status(200).json({ message: 'Server is running successfully' });
+// Health check route
+app.get("/api/health", (req, res) => {
+  res.status(200).json({ message: "🚀 Server is running successfully" });
 });
 
+// Server start
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {

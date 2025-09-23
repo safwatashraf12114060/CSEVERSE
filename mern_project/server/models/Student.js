@@ -1,3 +1,4 @@
+// mern_project/server/models/Student.js
 import mongoose from "mongoose";
 
 const studentSchema = new mongoose.Schema({
@@ -38,6 +39,15 @@ const studentSchema = new mongoose.Schema({
   },
   profilePicture: {
     type: String,
+    default: null
+  },
+  // for password reset
+  passwordResetToken: {
+    type: String,
+    default: null
+  },
+  passwordResetExpires: {
+    type: Date,
     default: null
   },
   createdAt: {
