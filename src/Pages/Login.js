@@ -64,10 +64,15 @@ function Login({ theme, toggleTheme, setUser, user }) {
               </label>
             </div>
             <button type="submit" className="login-btn">Login</button>
+            <div style={{ marginTop: 8, textAlign: "right" }}>
+              <Link to="/forgot-password" style={{ fontSize: 14, color: "#333", textDecoration: "underline" }}>
+                Forgot Password?
+              </Link>
+            </div>
           </form>
           {message && <p>{message}</p>}
           <div className="login-links">
-            <a href="#">Forgot Password?</a>
+            {/* Removed old anchor, only show sign up link here */}
             <p>Don't have an account? <Link to="/signup">Sign up</Link></p>
           </div>
         </div>
