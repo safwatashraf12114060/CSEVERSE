@@ -1,12 +1,22 @@
+import jwt from "jsonwebtoken";
 import express from "express";
+import requireAuth from "../middleware/requireAuth.js";
 import multer from "multer";
 import path from "path";
-import Student from "../models/Student.js";
 import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
-import requireAuth from "../middleware/requireAuth.js";
+import Student from "../models/Student.js";
 
 const router = express.Router();
+// ✅ Get Single Student Profile (GET)
+router.get("/:id", requireAuth, async (req, res) => {
+  try {
+    const student = await Student.findById(req.params.id);
+    if (!student) return res.status(404).json({ error: "Student not found" });
+    res.status(200).json(student);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
 
 // Configure multer for file uploads
 const storage = multer.diskStorage({
@@ -65,8 +75,8 @@ router.post("/signup", async (req, res) => {
 
     await student.save();
     
-    // Generate JWT token with fallback secret
-    const token = jwt.sign({ _id: student._id }, process.env.SECRET || 'fallback-secret-key', { expiresIn: '3d' });
+  // Generate JWT token with only env secret
+  const token = jwt.sign({ _id: student._id }, process.env.SECRET, { expiresIn: '3d' });
     
     res.status(201).json({ 
       message: "Signup successful", 
@@ -96,8 +106,8 @@ router.post("/login", async (req, res) => {
       return res.status(401).json({ error: "Invalid email or password" });
     }
 
-    // Generate JWT token with fallback secret
-    const token = jwt.sign({ _id: student._id }, process.env.SECRET || 'fallback-secret-key', { expiresIn: '3d' });
+  // Generate JWT token with only env secret
+  const token = jwt.sign({ _id: student._id }, process.env.SECRET, { expiresIn: '3d' });
 
     // Success with token
     res.status(200).json({ 
@@ -126,12 +136,66 @@ router.get("/", requireAuth, async (req, res) => {
 router.patch("/:id", requireAuth, async (req, res) => {
   try {
     const { id } = req.params;
-    const { fullName, contactNo, address, semester, year } = req.body;
+    const student = await Student.findById(id);
+    if (!student) {
+      return res.status(404).json({ error: "Student not found" });
+    }
+    // Update only provided fields
+    const updatableFields = ["fullName", "contactNo", "address", "semester", "year"];
+    updatableFields.forEach(field => {
+      if (req.body[field] !== undefined) {
+        student[field] = req.body[field];
+      }
+    });
+    await student.save();
+    res.status(200).json({
+      message: "Profile updated successfully",
+      student
+    });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+// ✅ Update Student Profile (PATCH)
+router.patch("/:id", requireAuth, async (req, res) => {
+  try {
+    const { id } = req.params;
+    const student = await Student.findById(id);
+    if (!student) {
+      return res.status(404).json({ error: "Student not found" });
+    }
+    // Update only provided fields
+    const updatableFields = ["fullName", "contactNo", "address", "semester", "year"];
+    updatableFields.forEach(field => {
+      if (req.body[field] !== undefined) {
+        student[field] = req.body[field];
+      }
+    });
+    await student.save();
+    res.status(200).json({
+      message: "Profile updated successfully",
+      student
+    });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
+// ✅ Upload Profile Picture (PATCH)
+router.patch("/:id/profile-picture", requireAuth, upload.single('profilePicture'), async (req, res) => {
+  try {
+    const { id } = req.params;
+    
+    if (!req.file) {
+      return res.status(400).json({ error: "No file uploaded" });
+    }
+
+    const profilePicture = `/uploads/profile-pictures/${req.file.filename}`;
 
     const updatedStudent = await Student.findByIdAndUpdate(
       id,
-      { fullName, contactNo, address, semester, year },
-      { new: true, runValidators: true }
+      { profilePicture },
+      { new: true }
     );
 
     if (!updatedStudent) {
@@ -139,14 +203,13 @@ router.patch("/:id", requireAuth, async (req, res) => {
     }
 
     res.status(200).json({
-      message: "Profile updated successfully",
+      message: "Profile picture uploaded successfully",
       student: updatedStudent
     });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
 });
-
 // ✅ Upload Profile Picture (PATCH)
 router.patch("/:id/profile-picture", requireAuth, upload.single('profilePicture'), async (req, res) => {
   try {

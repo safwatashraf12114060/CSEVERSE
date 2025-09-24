@@ -21,6 +21,10 @@ function Login({ theme, toggleTheme, setUser, user }) {
       if (response.ok) {
         setMessage("✅ Login successful!");
         setUser(data.student);
+        // Save user name, email, and token in localStorage
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("userName", data.student.fullName || "");
+        localStorage.setItem("userEmail", data.student.eduMail || "");
         navigate("/");
       } else {
         setMessage(`❌ ${data.error}`);
