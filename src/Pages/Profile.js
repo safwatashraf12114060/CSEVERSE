@@ -3,6 +3,25 @@ import { useNavigate } from "react-router-dom";
 import "./Profile.css";
 
 const Profile = ({ theme, toggleTheme, user, setUser }) => {
+  const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+  // Fetch latest user profile from backend
+  const fetchUserProfile = async () => {
+    if (!user?._id) return;
+    try {
+      const res = await fetch(`/api/students/${user._id}`, {
+        headers: {
+          "Authorization": `Bearer ${localStorage.getItem("token")}`
+        }
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setUser(data);
+      }
+    } catch (err) {
+      console.error("Error fetching user profile:", err);
+    }
+  };
   const navigate = useNavigate();
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({
@@ -27,6 +46,12 @@ const Profile = ({ theme, toggleTheme, user, setUser }) => {
     }
   }, [user]);
 
+  // Fetch latest profile on mount
+  useEffect(() => {
+    fetchUserProfile();
+    // eslint-disable-next-line
+  }, []);
+
   const handleInputChange = (e) => {
     setFormData({
       ...formData,
@@ -50,6 +75,7 @@ const Profile = ({ theme, toggleTheme, user, setUser }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setErrorMessage("");
     try {
       const response = await fetch(`/api/students/${user._id}`, {
         method: "PATCH",
@@ -61,13 +87,19 @@ const Profile = ({ theme, toggleTheme, user, setUser }) => {
       });
 
       if (response.ok) {
-        const data = await response.json();
-        setUser(data.student);
+        await fetchUserProfile();
         setIsEditing(false);
-        alert("Profile updated successfully!");
+        setSuccessMessage("Profile updated successfully!");
+        setTimeout(() => setSuccessMessage(""), 2000);
+      } else {
+        const data = await response.json();
+        setErrorMessage(data.error || "Failed to update profile.");
+        setTimeout(() => setErrorMessage(""), 3000);
       }
     } catch (error) {
       console.error("Error updating profile:", error);
+      setErrorMessage("Failed to update profile. Please try again.");
+      setTimeout(() => setErrorMessage(""), 3000);
     }
   };
 
@@ -77,6 +109,7 @@ const Profile = ({ theme, toggleTheme, user, setUser }) => {
     const formData = new FormData();
     formData.append("profilePicture", profilePicture);
 
+    setErrorMessage("");
     try {
       const response = await fetch(`/api/students/${user._id}/profile-picture`, {
         method: "PATCH",
@@ -87,13 +120,19 @@ const Profile = ({ theme, toggleTheme, user, setUser }) => {
       });
 
       if (response.ok) {
-        const data = await response.json();
-        setUser(data.student);
+        await fetchUserProfile();
         setProfilePicture(null);
-        alert("Profile picture updated successfully!");
+        setSuccessMessage("Profile picture updated successfully!");
+        setTimeout(() => setSuccessMessage(""), 2000);
+      } else {
+        const data = await response.json();
+        setErrorMessage(data.error || "Failed to upload profile picture.");
+        setTimeout(() => setErrorMessage(""), 3000);
       }
     } catch (error) {
       console.error("Error uploading image:", error);
+      setErrorMessage("Failed to upload profile picture. Please try again.");
+      setTimeout(() => setErrorMessage(""), 3000);
     }
   };
 
@@ -109,7 +148,16 @@ const Profile = ({ theme, toggleTheme, user, setUser }) => {
     <div className={`profile-page ${theme}`}>
       <div className="profile-container">
         <h1>Your Profile</h1>
-        
+        {successMessage && (
+          <div className="profile-success-message" style={{ color: 'green', marginBottom: 12, textAlign: 'center', fontWeight: 500 }}>
+            {successMessage}
+          </div>
+        )}
+        {errorMessage && (
+          <div className="profile-error-message" style={{ color: 'red', marginBottom: 12, textAlign: 'center', fontWeight: 500 }}>
+            {errorMessage}
+          </div>
+        )}
         {/* Profile Picture Section */}
         <div className="profile-picture-section">
           <div className="profile-image-container">

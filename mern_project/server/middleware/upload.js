@@ -1,5 +1,13 @@
+
 import multer from 'multer';
 import path from 'path';
+import fs from 'fs';
+
+// Ensure upload directory exists
+const uploadDir = path.join('uploads', 'profile-pictures');
+if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir, { recursive: true });
+}
 
 // Create storage configuration
 const storage = multer.diskStorage({

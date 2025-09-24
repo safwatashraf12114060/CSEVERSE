@@ -11,6 +11,10 @@ function NavigationBar({ theme, toggleTheme, user, setUser }) {
 
   const handleLogout = () => {
     setUser(null);     // user state clear
+    // Remove all user-related data from localStorage
+    localStorage.removeItem("token");
+    localStorage.removeItem("userName");
+    localStorage.removeItem("userEmail");
     navigate("/");     // home redirect
   };
 
